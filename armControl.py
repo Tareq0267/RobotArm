@@ -40,6 +40,11 @@ while running and not rospy.is_shutdown():
             running = False
             pygame.quit()
             sys.exit()
+        elif event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_q:  # Check if "Q" is pressed
+                running = False
+                pygame.quit()
+                sys.exit()
         elif event.type == pygame.MOUSEBUTTONDOWN:
             # Toggle the gripper state when the mouse is clicked
             gripper_closed = not gripper_closed
@@ -53,7 +58,7 @@ while running and not rospy.is_shutdown():
     mouse_x, mouse_y = pygame.mouse.get_pos()
 
     # Scale mouse_x and mouse_y to a reasonable range for robot joints
-    arm1_pos = scale_value(mouse_x, 0, 640, -1.5, 1.5)  # example [-1.5, 1.5] radians
+    arm1_pos = scale_value(mouse_x, 0, 640, -1.5, 1.5)  # Example range [-1.5, 1.5] radians
     arm2_pos = scale_value(mouse_y, 0, 480, -1.5, 1.5)
     arm3_pos = scale_value(mouse_x, 0, 640, -1.5, 1.5)
     arm4_pos = scale_value(mouse_y, 0, 480, -1.5, 1.5)
@@ -71,7 +76,7 @@ while running and not rospy.is_shutdown():
     # Add a small delay
     pygame.time.delay(50)
 
-if name == 'main':
+if __name__ == '__main__':
     try:
         # Run the main loop
         rospy.spin()
